@@ -20,7 +20,6 @@ export default function HistoryPage() {
     }
   }, [user])
 
-  // Group entries by local day
   const grouped = entries.reduce((acc, entry) => {
     const d = new Date(entry.timestamp)
     const day = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`

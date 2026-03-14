@@ -1,10 +1,5 @@
 import './ChipSelector.css'
 
-/**
- * ChipSelector supports two modes:
- * - Simple: pass `options` (string[]) for a flat list
- * - Grouped: pass `groups` ({ label: string, options: string[] }[]) for sectioned display
- */
 export default function ChipSelector({ options, groups, value, onChange, label }) {
   const renderChips = (opts) =>
     opts.map(opt => (

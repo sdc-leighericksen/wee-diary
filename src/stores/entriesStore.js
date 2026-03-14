@@ -24,10 +24,6 @@ const useEntriesStore = create((set, get) => ({
     await get().fetchEntries(userId, startOfDay(now), endOfDay(now))
   },
 
-  /**
-   * Fetches entries for streak calculation without overwriting the main entries state.
-   * Returns the documents array directly.
-   */
   fetchStreakEntries: async (userId, days = 120) => {
     try {
       const now = new Date()

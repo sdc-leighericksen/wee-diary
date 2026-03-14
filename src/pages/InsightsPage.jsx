@@ -24,7 +24,6 @@ export default function InsightsPage() {
     }
   }, [user, range])
 
-  // Build daily data
   const dailyData = []
   for (let i = range - 1; i >= 0; i--) {
     const date = subDays(new Date(), i)
@@ -38,7 +37,6 @@ export default function InsightsPage() {
     const voids = dayEntries.filter(e => e.entryType === 'void')
     const changes = dayEntries.filter(e => e.entryType === 'change')
 
-    // Pad-derived urine: wet weight minus dry weight per change (1g ≈ 1ml)
     const padUrineOut = changes.reduce((sum, e) => {
       if (e.wetWeightG && e.productDryWeightG) {
         return sum + Math.max(0, e.wetWeightG - e.productDryWeightG)
@@ -64,17 +62,14 @@ export default function InsightsPage() {
     })
   }
 
-  // Range totals for the fluid balance summary card
   const totalFluidIn = dailyData.reduce((s, d) => s + d.fluidIn, 0)
   const totalUrineOut = dailyData.reduce((s, d) => s + d.urineOut, 0)
   const totalPadOut = dailyData.reduce((s, d) => s + d.padUrineOut, 0)
   const totalOut = totalUrineOut + totalPadOut
   const netBalance = totalFluidIn - totalOut
 
-  // Expected daily output from weight (30 ml/kg/day is paediatric standard)
   const expectedDailyOutput = userWeightKg ? Math.round(userWeightKg * 30) : null
 
-  // Time-of-day analysis
   const hourBuckets = Array.from({ length: 24 }, (_, i) => ({ hour: i, leaks: 0, highUrgency: 0 }))
   entries.forEach(e => {
     if (e.entryType !== 'void') return

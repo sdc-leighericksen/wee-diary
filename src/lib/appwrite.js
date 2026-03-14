@@ -13,7 +13,6 @@ const REMINDERS = import.meta.env.VITE_APPWRITE_REMINDERS_COLLECTION_ID
 
 export { client, ID, Query }
 
-// Verify Appwrite connectivity
 export async function pingAppwrite() {
   try {
     const result = await client.ping()
@@ -25,7 +24,6 @@ export async function pingAppwrite() {
   }
 }
 
-// Auth
 export async function login(email, password) {
   return account.createEmailPasswordSession(email, password)
 }
@@ -38,14 +36,12 @@ export async function getUser() {
   return account.get()
 }
 
-// Strip null/undefined values so Appwrite doesn't reject unknown or non-nullable attributes
 function clean(obj) {
   return Object.fromEntries(
     Object.entries(obj).filter(([, v]) => v !== null && v !== undefined)
   )
 }
 
-// Entries
 export async function createEntry(data) {
   return databases.createDocument(DB, ENTRIES, ID.unique(), clean(data))
 }
@@ -70,7 +66,6 @@ export async function deleteEntry(id) {
   return databases.deleteDocument(DB, ENTRIES, id)
 }
 
-// Reminders
 export async function getReminders(userId) {
   const res = await databases.listDocuments(DB, REMINDERS, [
     Query.equal('userId', userId),

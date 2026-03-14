@@ -71,11 +71,9 @@ export default function LogEntryPage() {
   const [saveError, setSaveError] = useState('')
   const [confirmDelete, setConfirmDelete] = useState(false)
 
-  // Fluid fields
   const [fluidType, setFluidType] = useState('')
   const [fluidAmount, setFluidAmount] = useState(0)
 
-  // Void fields
   const [urgencyLevel, setUrgencyLevel] = useState(0)
   const [measured, setMeasured] = useState(false)
   const [urineAmount, setUrineAmount] = useState(0)
@@ -84,13 +82,11 @@ export default function LogEntryPage() {
   const [padChanged, setPadChanged] = useState(false)
   const [activityNotes, setActivityNotes] = useState('')
 
-  // Change fields
   const [changeFullness, setChangeFullness] = useState('')
   const [changeReason, setChangeReason] = useState('')
   const [selectedProductId, setSelectedProductId] = useState('')
   const [wetWeightG, setWetWeightG] = useState(0)
 
-  // Load existing entry for editing
   useEffect(() => {
     if (editId) {
       const entry = entries.find(e => e.$id === editId)
@@ -119,7 +115,6 @@ export default function LogEntryPage() {
     }
   }, [editId, entries])
 
-  // Auto-advance if type from query param
   useEffect(() => {
     if (searchParams.get('type') && !editId) setStep(1)
   }, [])
@@ -160,8 +155,6 @@ export default function LogEntryPage() {
         if (changeFullness) data.changeFullness = changeFullness
         if (changeReason) data.changeReason = changeReason
         if (activityNotes) data.activityNotes = activityNotes
-        // wetWeightG and product data are local-only (pad urine estimate shown on-screen)
-        // not sent to Appwrite — avoids requiring schema changes
       }
 
       if (editId) {

@@ -6,9 +6,8 @@ export function generatePDF(entries, dateFrom, dateTo, patientName) {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
   const pageWidth = doc.internal.pageSize.getWidth()
 
-  // Cover info
   doc.setFontSize(22)
-  doc.setTextColor(146, 64, 14) // amber-900
+  doc.setTextColor(146, 64, 14)
   doc.text('Wee Diary', pageWidth / 2, 40, { align: 'center' })
   doc.setFontSize(14)
   doc.setTextColor(60, 60, 60)
@@ -24,7 +23,6 @@ export function generatePDF(entries, dateFrom, dateTo, patientName) {
   ]
   lines.forEach((line, i) => doc.text(line, pageWidth / 2, 65 + i * 7, { align: 'center' }))
 
-  // Daily summary table
   const dailyMap = {}
   entries.forEach(e => {
     const day = format(new Date(e.timestamp), 'yyyy-MM-dd')
@@ -65,7 +63,6 @@ export function generatePDF(entries, dateFrom, dateTo, patientName) {
     alternateRowStyles: { fillColor: [255, 251, 235] },
   })
 
-  // Detailed entry table
   doc.addPage()
   doc.setFontSize(14)
   doc.text('Detailed Diary', 14, 20)

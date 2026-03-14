@@ -52,7 +52,6 @@
 }
 
 :root {
-  /* ── Brand Palette ─────────────────────────────────────── */
   --color-bg: #faf085;
   --color-surface: #ffffff;
   --color-primary: #c1a502;
@@ -64,16 +63,13 @@
   --color-cream: #fef9cd;
   --color-gold: #c1a502;
 
-  /* ── Text ──────────────────────────────────────────────── */
   --color-text: #302f2a;
   --color-text-secondary: #7a776c;
   --color-text-tertiary: #7a776c;
 
-  /* ── Borders ───────────────────────────────────────────── */
   --color-border: #e0dbc8;
   --color-border-light: #eee9d4;
 
-  /* ── Semantic ──────────────────────────────────────────── */
   --color-success: #16A34A;
   --color-success-light: #DCFCE7;
   --color-danger: #DC2626;
@@ -81,14 +77,12 @@
   --color-warning: #F59E0B;
   --color-warning-light: #FEF9C3;
 
-  /* ── Urgency ───────────────────────────────────────────── */
   --urgency-1: #22C55E;
   --urgency-2: #EAB308;
   --urgency-3: #F97316;
   --urgency-4: #EF4444;
   --urgency-5: #991B1B;
 
-  /* ── Shape & Shadow ────────────────────────────────────── */
   --radius: 12px;
   --radius-sm: 8px;
   --radius-lg: 16px;
@@ -96,11 +90,9 @@
   --shadow-md: 0 4px 6px -1px rgba(48, 47, 42, 0.07), 0 2px 4px -2px rgba(48, 47, 42, 0.05);
   --shadow-lg: 0 10px 15px -3px rgba(48, 47, 42, 0.08), 0 4px 6px -4px rgba(48, 47, 42, 0.04);
 
-  /* ── Layout ────────────────────────────────────────────── */
   --nav-height: 64px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 
-  /* ── Typography ────────────────────────────────────────── */
   --font-heading: 'MuseoSansRounded', 'Nunito', 'Rounded Mplus 1c', sans-serif;
   --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
