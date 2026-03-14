@@ -108,6 +108,7 @@ body {
   color: var(--color-text);
   line-height: 1.5;
   min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom);
   -webkit-font-smoothing: antialiased;
 }
 
