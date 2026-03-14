@@ -1,0 +1,129 @@
+.range-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.range-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border);
+  transition: all 0.15s;
+}
+
+.range-btn.active {
+  background: #302f2a;
+  color: #ffffff;
+  border-color: #302f2a;
+}
+
+.charts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chart-card {
+  padding: 16px 12px;
+}
+
+.chart-title {
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #302f2a;
+  margin-bottom: 12px;
+}
+
+.chart-sub {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  margin-top: -8px;
+  margin-bottom: 12px;
+}
+
+.trouble-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trouble-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.trouble-row:last-child { border-bottom: none; }
+
+.trouble-time {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.trouble-stats {
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+.trouble-leak { color: var(--color-danger); font-weight: 500; }
+.trouble-urgency { color: var(--color-warning); font-weight: 500; }
+
+/* ── Fluid Balance Card ────────────────────────────────── */
+.balance-card { }
+
+.balance-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 12px;
+}
+
+.balance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: 0.88rem;
+}
+
+.balance-row:last-child { border-bottom: none; }
+
+.balance-row-total {
+  font-weight: 700;
+  padding-top: 10px;
+  font-size: 0.95rem;
+}
+
+.balance-label {
+  color: var(--color-text-secondary);
+}
+
+.balance-value {
+  font-weight: 600;
+}
+
+.balance-value.fluid-in { color: #c1a502; }
+.balance-value.urine-out { color: #302f2a; }
+.balance-value.pad-out { color: #059669; }
+.balance-value.positive { color: var(--color-success, #16A34A); }
+.balance-value.negative { color: var(--color-danger); }
+
+.balance-note {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  background: var(--color-primary-lighter);
+  border-radius: var(--radius-sm, 6px);
+  padding: 8px 10px;
+  margin: 0;
+  line-height: 1.4;
+}

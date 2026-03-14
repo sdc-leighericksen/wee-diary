@@ -1,0 +1,100 @@
+.history-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.day-group {
+  background: var(--color-surface);
+  border: 1px solid #e0dbc8;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  width: 100%;
+  text-align: left;
+  color: var(--color-text);
+  transition: background 0.1s;
+}
+
+.day-header:active { background: #fef9cd; }
+
+.day-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.day-date {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #302f2a;
+}
+
+.day-stats {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: #7a776c;
+}
+
+.dot { opacity: 0.4; }
+
+.leak-badge {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.day-entries {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.history-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #eee9d4;
+}
+
+/* Uniform icon badge colour in history (matches dashboard) */
+.history-entry .entry-icon {
+  background: #faf085;
+  color: #302f2a;
+}
+
+.history-entry:last-child { border-bottom: none; }
+
+.delete-btn {
+  height: 32px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 8px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  transition: all 0.15s;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.delete-btn:active, .delete-btn.confirm {
+  color: white;
+  background: var(--color-danger);
+}

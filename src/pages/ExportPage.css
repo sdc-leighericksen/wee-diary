@@ -1,0 +1,17 @@
+.export-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.export-preview {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.export-range {
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  margin-top: 2px;
+}

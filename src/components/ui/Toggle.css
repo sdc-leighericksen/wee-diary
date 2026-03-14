@@ -1,0 +1,38 @@
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.toggle-label {
+  font-size: 0.95rem;
+}
+
+.toggle {
+  width: 48px;
+  height: 28px;
+  background: var(--color-border);
+  border-radius: 14px;
+  padding: 2px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.toggle-on {
+  background: #c1a502;
+}
+
+.toggle-knob {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-on .toggle-knob {
+  transform: translateX(20px);
+}

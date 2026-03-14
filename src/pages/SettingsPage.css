@@ -1,0 +1,110 @@
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settings-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: background 0.1s;
+  text-align: left;
+}
+
+.settings-link:active { background: #fef9cd; }
+
+.app-version {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--color-text-tertiary);
+  margin-top: 8px;
+}
+
+.settings-hint {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.settings-section-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #302f2a;
+  margin: 0;
+}
+
+/* ── Continence Products ───────────────────────────────── */
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #fef9cd;
+  border: 1px solid #e0dbc8;
+  border-radius: var(--radius-sm, 6px);
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.product-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.product-weight {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.product-remove {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+.product-remove:hover { opacity: 1; }
+
+.product-add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border-light);
+}

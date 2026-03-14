@@ -1,0 +1,61 @@
+.urgency-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.urgency-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.urgency-options {
+  display: flex;
+  gap: 6px;
+}
+
+.urgency-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 4px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  transition: all 0.15s;
+  min-height: 72px;
+}
+
+.urgency-option:active { transform: scale(0.95); }
+
+.urgency-active {
+  border-color: var(--dot-color);
+  background: color-mix(in srgb, var(--dot-color) 8%, white);
+}
+
+.urgency-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--dot-color);
+  transition: transform 0.15s;
+}
+
+.urgency-active .urgency-dot {
+  transform: scale(1.2);
+}
+
+.urgency-value {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+.urgency-text {
+  font-size: 0.65rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.2;
+}

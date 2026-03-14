@@ -1,0 +1,26 @@
+.time-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.time-picker-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.time-picker-input {
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.time-picker-input:focus {
+  border-color: var(--color-primary);
+}

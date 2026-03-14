@@ -1,0 +1,52 @@
+.chip-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chip-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  background: #faf085;
+  color: #302f2a;
+  border: 1.5px solid #e0dbc8;
+  transition: all 0.15s;
+}
+
+.chip-active {
+  background: #302f2a;
+  color: #ffffff;
+  border-color: #302f2a;
+}
+
+.chip:active {
+  transform: scale(0.95);
+}
+
+.chip-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chip-group-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}

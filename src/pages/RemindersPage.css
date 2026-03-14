@@ -1,0 +1,71 @@
+.ios-prompt {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  background: var(--color-primary-lighter) !important;
+  border-color: var(--color-primary-light) !important;
+  color: var(--color-primary-dark);
+}
+
+.ios-prompt p {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+.reminder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.reminder-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.reminder-time {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.reminder-remove {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  transition: all 0.15s;
+}
+
+.reminder-remove:active {
+  color: var(--color-danger);
+  background: var(--color-danger-light);
+}
+
+.add-reminder {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.time-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background: var(--color-surface);
+  outline: none;
+}
+
+.time-input:focus { border-color: var(--color-primary); }

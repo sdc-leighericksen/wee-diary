@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pandoc /Users/leighericksen/Downloads/WeedDiary_Build_Brief.docx -o /tmp/brief.md)",
+      "Bash(brew list pandoc)",
+      "Bash(brew install pandoc)",
+      "Bash(npm create vite@latest . -- --template react)",
+      "Bash(yes \"\")",
+      "Bash(npm init -y)",
+      "Bash(npm install react@^18.3 react-dom@^18.3 react-router-dom@^6.23 appwrite@^16.0 zustand@^4.5 recharts@^2.12 jspdf@^2.5 jspdf-autotable@^3.8 lucide-react@^0.400 date-fns@^3.6)",
+      "Bash(npm install -D vite@^5.3 @vitejs/plugin-react@^4.3 vite-plugin-pwa@^0.20)",
+      "Bash(npx vite build)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(appwrite --version)",
+      "Bash(npm install --save-dev node-appwrite)"
+    ]
+  }
+}

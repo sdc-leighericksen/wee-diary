@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+@font-face {
+  font-family: 'MuseoSansRounded';
+  src: url('/fonts/MuseoSansRounded100.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MuseoSansRounded';
+  src: url('/fonts/MuseoSansRounded300.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MuseoSansRounded';
+  src: url('/fonts/MuseoSansRounded500.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MuseoSansRounded';
+  src: url('/fonts/MuseoSansRounded700.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MuseoSansRounded';
+  src: url('/fonts/MuseoSansRounded900.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MuseoSansRounded';
+  src: url('/fonts/MuseoSansRounded1000.otf') format('opentype');
+  font-weight: 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ── Brand Palette ─────────────────────────────────────── */
+  --color-bg: #faf085;
+  --color-surface: #ffffff;
+  --color-primary: #c1a502;
+  --color-primary-hover: #a38a00;
+  --color-primary-light: #fef9cd;
+  --color-primary-lighter: #faf085;
+  --color-primary-dark: #302f2a;
+  --color-near-black: #302f2a;
+  --color-cream: #fef9cd;
+  --color-gold: #c1a502;
+
+  /* ── Text ──────────────────────────────────────────────── */
+  --color-text: #302f2a;
+  --color-text-secondary: #7a776c;
+  --color-text-tertiary: #7a776c;
+
+  /* ── Borders ───────────────────────────────────────────── */
+  --color-border: #e0dbc8;
+  --color-border-light: #eee9d4;
+
+  /* ── Semantic ──────────────────────────────────────────── */
+  --color-success: #16A34A;
+  --color-success-light: #DCFCE7;
+  --color-danger: #DC2626;
+  --color-danger-light: #FEE2E2;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF9C3;
+
+  /* ── Urgency ───────────────────────────────────────────── */
+  --urgency-1: #22C55E;
+  --urgency-2: #EAB308;
+  --urgency-3: #F97316;
+  --urgency-4: #EF4444;
+  --urgency-5: #991B1B;
+
+  /* ── Shape & Shadow ────────────────────────────────────── */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 3px rgba(48, 47, 42, 0.06), 0 1px 2px rgba(48, 47, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(48, 47, 42, 0.07), 0 2px 4px -2px rgba(48, 47, 42, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(48, 47, 42, 0.08), 0 4px 6px -4px rgba(48, 47, 42, 0.04);
+
+  /* ── Layout ────────────────────────────────────────────── */
+  --nav-height: 64px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* ── Typography ────────────────────────────────────────── */
+  --font-heading: 'MuseoSansRounded', 'Nunito', 'Rounded Mplus 1c', sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+input, button, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* Utility classes */
+.page {
+  flex: 1;
+  padding: 16px 16px calc(var(--nav-height) + var(--safe-bottom) + 16px);
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes checkmark {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.success-check {
+  animation: checkmark 0.4s ease-out forwards;
+  color: var(--color-success);
+}
