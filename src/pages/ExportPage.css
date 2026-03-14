@@ -5,6 +5,23 @@
   margin-top: 8px;
 }
 
+.export-form input[type="date"] {
+  padding: 15px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.export-form input[type="date"]:focus {
+  border-color: var(--color-primary);
+}
+
 .export-preview {
   text-align: center;
   font-size: 0.9rem;

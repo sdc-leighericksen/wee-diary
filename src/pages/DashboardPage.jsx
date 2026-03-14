@@ -54,13 +54,18 @@ export default function DashboardPage() {
 
   const summary = getTodaySummary()
   const todayEntries = getTodayEntries()
-  const name = displayName || user?.name || 'there'
+  const fullName  = displayName || user?.name || 'there'
+  const firstName = fullName.split(' ')[0]
 
   const hour = new Date().getHours()
   const greeting = hour >= 5 && hour < 12 ? 'Morning'
     : hour >= 12 && hour < 17 ? 'Afternoon'
     : hour >= 17 && hour < 21 ? 'Evening'
     : 'Good night'
+  const greetingEmoji = hour >= 5 && hour < 12 ? '\u2600\uFE0F'   // ☀️
+    : hour >= 12 && hour < 17 ? '\uD83C\uDF24\uFE0F'              // 🌤️
+    : hour >= 17 && hour < 21 ? '\uD83C\uDF07'                    // 🌆
+    : '\uD83C\uDF19'                                               // 🌙
 
   return (
     <div className="page fade-in dash-page">
@@ -79,7 +84,7 @@ export default function DashboardPage() {
       {/* Greeting — above the white card, yellow bg visible */}
       <div className="dash-greeting">
         <Logo width={160} />
-        <p className="dash-hello">{greeting}, {name}! ☀️</p>
+        <p className="dash-hello">{greeting}, {firstName}! {greetingEmoji}</p>
         <p className="dash-subdate">{format(new Date(), 'EEEE, d MMMM')}</p>
       </div>
 

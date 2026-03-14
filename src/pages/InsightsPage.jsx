@@ -1,13 +1,22 @@
 import { useState, useEffect } from 'react'
-import { subDays, format, endOfDay } from 'date-fns'
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import { subDays, endOfDay } from 'date-fns'
+import {
+  BarChart, Bar,
+  LineChart, Line,
+  ReferenceLine,
+  XAxis, YAxis,
+  CartesianGrid, Tooltip,
+  ResponsiveContainer, Legend,
+} from 'recharts'
+import { format } from 'date-fns'
 import useAuthStore from '../stores/authStore'
 import useEntriesStore from '../stores/entriesStore'
 import useSettingsStore from '../stores/settingsStore'
+import { buildDailyData, outputRateLabel } from '../lib/calculations'
 import './InsightsPage.css'
 
 const RANGES = [
-  { label: '7 days', days: 7 },
+  { label: '7 days',  days: 7  },
   { label: '14 days', days: 14 },
   { label: '30 days', days: 30 },
 ]
@@ -24,51 +33,21 @@ export default function InsightsPage() {
     }
   }, [user, range])
 
-  const dailyData = []
-  for (let i = range - 1; i >= 0; i--) {
-    const date = subDays(new Date(), i)
-    const dayEntries = entries.filter(e => {
-      const d = new Date(e.timestamp)
-      return d.getFullYear() === date.getFullYear() &&
-             d.getMonth() === date.getMonth() &&
-             d.getDate() === date.getDate()
-    })
-    const fluids = dayEntries.filter(e => e.entryType === 'fluid')
-    const voids = dayEntries.filter(e => e.entryType === 'void')
-    const changes = dayEntries.filter(e => e.entryType === 'change')
+  const dailyData = buildDailyData(entries, range, userWeightKg)
 
-    const padUrineOut = changes.reduce((sum, e) => {
-      if (e.wetWeightG && e.productDryWeightG) {
-        return sum + Math.max(0, e.wetWeightG - e.productDryWeightG)
-      }
-      return sum
-    }, 0)
-
-    const urineOut = voids.reduce((s, e) => s + (e.urineAmount || 0), 0)
-    const fluidIn = fluids.reduce((s, e) => s + (e.fluidAmount || 0), 0)
-
-    dailyData.push({
-      day: format(date, 'EEE'),
-      date: format(date, 'd/M'),
-      fluidIn,
-      urineOut,
-      padUrineOut,
-      totalOut: urineOut + padUrineOut,
-      balance: fluidIn - (urineOut + padUrineOut),
-      leaks: voids.filter(e => e.leaked).length,
-      avgUrgency: voids.length
-        ? +(voids.reduce((s, e) => s + (e.urgencyLevel || 0), 0) / voids.length).toFixed(1)
-        : null,
-    })
-  }
-
-  const totalFluidIn = dailyData.reduce((s, d) => s + d.fluidIn, 0)
-  const totalUrineOut = dailyData.reduce((s, d) => s + d.urineOut, 0)
-  const totalPadOut = dailyData.reduce((s, d) => s + d.padUrineOut, 0)
-  const totalOut = totalUrineOut + totalPadOut
-  const netBalance = totalFluidIn - totalOut
+  const totalFluidIn  = dailyData.reduce((s, d) => s + d.fluidIn,     0)
+  const totalUrineOut = dailyData.reduce((s, d) => s + d.urineOut,    0)
+  const totalPadOut   = dailyData.reduce((s, d) => s + d.padUrineOut, 0)
+  const totalOut      = totalUrineOut + totalPadOut
+  const netBalance    = totalFluidIn - totalOut
 
   const expectedDailyOutput = userWeightKg ? Math.round(userWeightKg * 30) : null
+
+  // Average output rate across the whole selected period
+  const avgOutputRate = userWeightKg && totalOut > 0
+    ? +(totalOut / (userWeightKg * range * 24)).toFixed(2)
+    : null
+  const rateInterpretation = outputRateLabel(avgOutputRate)
 
   const hourBuckets = Array.from({ length: 24 }, (_, i) => ({ hour: i, leaks: 0, highUrgency: 0 }))
   entries.forEach(e => {
@@ -82,8 +61,9 @@ export default function InsightsPage() {
     .sort((a, b) => (b.leaks + b.highUrgency) - (a.leaks + a.highUrgency))
     .slice(0, 5)
 
-  const tickLabel = range <= 7 ? 'day' : 'date'
+  const tickLabel  = range <= 7 ? 'day' : 'date'
   const hasPadData = totalPadOut > 0
+  const hasRateData = dailyData.some(d => d.urineOutputRate !== null)
 
   return (
     <div className="page fade-in">
@@ -108,11 +88,11 @@ export default function InsightsPage() {
       ) : (
         <div className="charts">
 
-          {/* Fluid in vs Urine out (expanded with pad urine) */}
+          {/* ── Fluid in vs Urine out ─────────────────────── */}
           <div className="chart-card card">
             <h3 className="chart-title">Fluid in vs Urine out</h3>
             {hasPadData && (
-              <p className="chart-sub">Includes urine calculated from pad weight changes</p>
+              <p className="chart-sub">Includes urine estimated from pad weight changes</p>
             )}
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={dailyData}>
@@ -121,8 +101,8 @@ export default function InsightsPage() {
                 <YAxis tick={{ fontSize: 11 }} width={40} />
                 <Tooltip />
                 <Legend iconSize={10} wrapperStyle={{ fontSize: 12 }} />
-                <Bar dataKey="fluidIn" name="Fluid in (ml)" fill="#F59E0B" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="urineOut" name="Urine out (ml)" fill="#FCD34D" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="fluidIn"     name="Fluid in (ml)"  fill="#F59E0B" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="urineOut"    name="Urine out (ml)" fill="#FCD34D" radius={[3, 3, 0, 0]} />
                 {hasPadData && (
                   <Bar dataKey="padUrineOut" name="Pad urine (ml)" fill="#6EE7B7" radius={[3, 3, 0, 0]} />
                 )}
@@ -130,7 +110,45 @@ export default function InsightsPage() {
             </ResponsiveContainer>
           </div>
 
-          {/* Fluid Balance Summary */}
+          {/* ── Urine output rate ─────────────────────────── */}
+          {userWeightKg ? (
+            <div className="chart-card card">
+              <h3 className="chart-title">Urine output rate (mL/kg/hr)</h3>
+              <p className="chart-sub">
+                Normal range: 0.5–5 mL/kg/hr · Based on total output ÷ ({userWeightKg} kg × 24 h)
+              </p>
+              {hasRateData ? (
+                <ResponsiveContainer width="100%" height={200}>
+                  <LineChart data={dailyData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-light)" />
+                    <XAxis dataKey={tickLabel} tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 11 }} width={40} domain={[0, 'auto']} />
+                    <Tooltip formatter={(v) => v !== null ? [`${v} mL/kg/hr`, 'Output rate'] : ['—', 'Output rate']} />
+                    <ReferenceLine y={0.5} stroke="#EF4444" strokeDasharray="4 3" label={{ value: 'Oliguria', position: 'insideTopLeft', fontSize: 10, fill: '#EF4444' }} />
+                    <ReferenceLine y={5}   stroke="#F59E0B" strokeDasharray="4 3" label={{ value: 'Polyuria',  position: 'insideTopLeft', fontSize: 10, fill: '#F59E0B' }} />
+                    <Line
+                      type="monotone"
+                      dataKey="urineOutputRate"
+                      name="Output rate"
+                      stroke="#302f2a"
+                      strokeWidth={2}
+                      dot={{ fill: '#302f2a', r: 3 }}
+                      connectNulls
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              ) : (
+                <p className="rate-hint">Log void or change entries to see your output rate.</p>
+              )}
+            </div>
+          ) : (
+            <div className="chart-card card">
+              <h3 className="chart-title">Urine output rate (mL/kg/hr)</h3>
+              <p className="rate-hint">Set your weight in Settings to enable this chart.</p>
+            </div>
+          )}
+
+          {/* ── Fluid balance summary ─────────────────────── */}
           <div className="chart-card card balance-card">
             <h3 className="chart-title">Fluid balance — {range} day total</h3>
             <div className="balance-stats">
@@ -148,20 +166,46 @@ export default function InsightsPage() {
                   <span className="balance-value pad-out">{totalPadOut} ml</span>
                 </div>
               )}
+              {totalPadOut > 0 && (
+                <div className="balance-row balance-row-combined">
+                  <span className="balance-label"><strong>Total urine out</strong></span>
+                  <span className="balance-value total-out"><strong>{totalOut} ml</strong></span>
+                </div>
+              )}
               <div className="balance-row balance-row-total">
                 <span className="balance-label">Net balance</span>
                 <span className={`balance-value ${netBalance >= 0 ? 'positive' : 'negative'}`}>
                   {netBalance >= 0 ? '+' : ''}{netBalance} ml
                 </span>
               </div>
+              {avgOutputRate !== null && rateInterpretation && (
+                <div className="balance-row">
+                  <span className="balance-label">Avg output rate</span>
+                  <span className="balance-value">
+                    {avgOutputRate} mL/kg/hr
+                    <span
+                      className="rate-badge"
+                      style={{ backgroundColor: rateInterpretation.color }}
+                    >
+                      {rateInterpretation.label}
+                    </span>
+                  </span>
+                </div>
+              )}
             </div>
             {expectedDailyOutput && (
               <p className="balance-note">
                 Expected daily output for your weight ({userWeightKg} kg): ≈ {expectedDailyOutput} ml/day
               </p>
             )}
+            {avgOutputRate !== null && rateInterpretation && (
+              <p className="balance-note" style={{ marginTop: 6 }}>
+                {rateInterpretation.note}
+              </p>
+            )}
           </div>
 
+          {/* ── Urgency over time ─────────────────────────── */}
           <div className="chart-card card">
             <h3 className="chart-title">Urgency over time</h3>
             <ResponsiveContainer width="100%" height={180}>
@@ -183,6 +227,7 @@ export default function InsightsPage() {
             </ResponsiveContainer>
           </div>
 
+          {/* ── Leak frequency ────────────────────────────── */}
           <div className="chart-card card">
             <h3 className="chart-title">Leak frequency</h3>
             <ResponsiveContainer width="100%" height={160}>
@@ -196,6 +241,7 @@ export default function InsightsPage() {
             </ResponsiveContainer>
           </div>
 
+          {/* ── Times to watch ────────────────────────────── */}
           {troubleHours.length > 0 && (
             <div className="chart-card card">
               <h3 className="chart-title">Times to watch</h3>
@@ -215,6 +261,7 @@ export default function InsightsPage() {
               </div>
             </div>
           )}
+
         </div>
       )}
     </div>

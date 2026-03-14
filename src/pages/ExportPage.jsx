@@ -4,6 +4,7 @@ import { format, subDays, startOfDay, endOfDay } from 'date-fns'
 import { ArrowLeft, FileDown } from 'lucide-react'
 import useAuthStore from '../stores/authStore'
 import useSettingsStore from '../stores/settingsStore'
+
 import { listEntries } from '../lib/appwrite'
 import { generatePDF } from '../lib/pdf'
 import Button from '../components/ui/Button'
@@ -12,7 +13,7 @@ import './ExportPage.css'
 export default function ExportPage() {
   const navigate = useNavigate()
   const user = useAuthStore(s => s.user)
-  const displayName = useSettingsStore(s => s.displayName)
+  const { displayName, userWeightKg } = useSettingsStore()
 
   const [fromDate, setFromDate] = useState(format(subDays(new Date(), 7), 'yyyy-MM-dd'))
   const [toDate, setToDate] = useState(format(new Date(), 'yyyy-MM-dd'))
@@ -38,8 +39,18 @@ export default function ExportPage() {
         endOfDay(new Date(toDate)).toISOString(),
         500
       )
-      const pdf = generatePDF(res.documents, new Date(fromDate), new Date(toDate), displayName || user.name || '')
-      pdf.output('dataurlnewwindow')
+      const patientName = displayName || user.name || ''
+      const pdf = await generatePDF(
+        res.documents,
+        new Date(fromDate),
+        new Date(toDate),
+        patientName,
+        userWeightKg || null,
+      )
+      const safeName = patientName.trim().replace(/\s+/g, '-') || 'patient'
+      const from     = format(new Date(fromDate), 'dd-MM-yyyy')
+      const to       = format(new Date(toDate),   'dd-MM-yyyy')
+      pdf.save(`wee-diary-${safeName}-${from}-${to}.pdf`)
     } catch (err) {
       alert('Error generating PDF: ' + err.message)
     }

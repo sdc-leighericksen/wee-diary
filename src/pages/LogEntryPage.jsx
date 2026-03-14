@@ -156,8 +156,14 @@ export default function LogEntryPage() {
 
       } else if (entryType === 'change') {
         if (changeFullness) data.changeFullness = changeFullness
-        if (changeReason) data.changeReason = changeReason
-        if (activityNotes) data.activityNotes = activityNotes
+        if (changeReason)   data.changeReason   = changeReason
+        if (activityNotes)  data.activityNotes  = activityNotes
+        // Save pre-calculated pad urine in mL so InsightsPage can total it.
+        // Requires one optional Integer attribute "padUrineML" in Appwrite.
+        if (selectedProduct && wetWeightG > 0) {
+          const padMl = Math.max(0, wetWeightG - selectedProduct.dryWeightG)
+          if (padMl > 0) data.padUrineML = padMl
+        }
       }
 
       if (editId) {

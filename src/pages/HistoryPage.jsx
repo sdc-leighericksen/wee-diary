@@ -63,8 +63,10 @@ export default function HistoryPage() {
           const voids = dayEntries.filter(e => e.entryType === 'void')
           const changes = dayEntries.filter(e => e.entryType === 'change')
           const leaks = voids.filter(e => e.leaked)
-          const totalFluid = fluids.reduce((s, e) => s + (e.fluidAmount || 0), 0)
-          const totalUrine = voids.reduce((s, e) => s + (e.urineAmount || 0), 0)
+          const totalFluid    = fluids.reduce((s, e) => s + (e.fluidAmount || 0), 0)
+          const totalUrine    = voids.reduce((s, e) => s + (e.urineAmount || 0), 0)
+          const totalPadUrine = changes.reduce((s, e) => s + (e.padUrineML || 0), 0)
+          const totalOut      = totalUrine + totalPadUrine
           const isToday = isSameDay(new Date(day), new Date())
 
           return (
@@ -77,7 +79,7 @@ export default function HistoryPage() {
                   <div className="day-stats">
                     <span>{totalFluid}ml in</span>
                     <span className="dot">·</span>
-                    <span>{totalUrine > 0 ? `${totalUrine}ml out` : `${voids.length} voids`}</span>
+                    <span>{totalOut > 0 ? `${totalOut}ml out` : `${voids.length} voids`}</span>
                     {changes.length > 0 && (
                       <>
                         <span className="dot">·</span>
@@ -107,9 +109,9 @@ export default function HistoryPage() {
                     if (entryType === 'fluid') {
                       label = `${entry.fluidType || 'Drink/food'}${entry.fluidAmount ? ` — ${entry.fluidAmount}ml` : ''}`
                     } else if (entryType === 'change') {
-                      label = `Changed${entry.changeFullness ? ` — ${entry.changeFullness}` : ''}`
+                      label = `Changed${entry.changeFullness ? ` — ${entry.changeFullness}` : ''}${entry.padUrineML ? ` — ${entry.padUrineML}ml` : ''}`
                     } else {
-                      label = `Void${entry.urgencyLevel ? ` (${entry.urgencyLevel}/5)` : ''}`
+                      label = `Void${entry.urgencyLevel ? ` (${entry.urgencyLevel}/5)` : ''}${entry.urineAmount ? ` — ${entry.urineAmount}ml` : ''}`
                     }
                     return (
                       <div key={entry.$id} className="history-entry">

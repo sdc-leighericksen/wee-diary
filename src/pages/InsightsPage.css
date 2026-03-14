@@ -115,8 +115,17 @@
 .balance-value.fluid-in { color: #8a7000; }
 .balance-value.urine-out { color: #302f2a; }
 .balance-value.pad-out { color: #059669; }
+.balance-value.total-out { color: #302f2a; }
 .balance-value.positive { color: var(--color-success, #16A34A); }
 .balance-value.negative { color: var(--color-danger); }
+
+.balance-row-combined {
+  background: var(--color-primary-lighter);
+  border-radius: var(--radius-sm, 6px);
+  padding: 8px 10px;
+  margin: 2px 0;
+  border-bottom: none !important;
+}
 
 .balance-note {
   font-size: 0.78rem;
@@ -125,5 +134,26 @@
   border-radius: var(--radius-sm, 6px);
   padding: 8px 10px;
   margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Urine output rate ─────────────────────────────── */
+.rate-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  margin-left: 8px;
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+
+.rate-hint {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin: 4px 0 0;
   line-height: 1.4;
 }

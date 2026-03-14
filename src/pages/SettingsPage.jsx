@@ -78,12 +78,12 @@ export default function SettingsPage() {
         {/* Display name */}
         <div className="card settings-card">
           <div className="form-field">
-            <label>Display name</label>
+            <label>First &amp; Last name</label>
             <input
               type="text"
               value={displayName}
               onChange={e => setDisplayName(e.target.value)}
-              placeholder="Your name"
+              placeholder="e.g. Jane Smith"
             />
           </div>
         </div>
@@ -261,7 +261,7 @@ export default function SettingsPage() {
           <LogOut size={18} /> Log out
         </Button>
 
-        <p className="app-version">Wee Diary v1.0</p>
+        <p className="app-version">WeeDiary App — A Urine Output Tracker<br />©2026 Built by the Ericksen Family</p>
       </div>
     </div>
   )
