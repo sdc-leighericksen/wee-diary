@@ -44,7 +44,10 @@ const QUICK_AMOUNTS = [
   { label: 'Small glass', ml: 200 },
   { label: 'Cup', ml: 250 },
   { label: 'Large glass', ml: 350 },
+  { label: 'Can', ml: 375 },
   { label: 'Bottle', ml: 500 },
+  { label: 'Sport bottle', ml: 600 },
+  { label: 'Drink bottle', ml: 1000 },
 ]
 const LEAK_SIZES = ['Spot', 'Small', 'Medium', 'Large']
 const FULLNESS_LEVELS = ['Dry', 'Slightly damp', 'Damp', 'Wet', 'Soaked']

@@ -36,6 +36,10 @@ export async function getUser() {
   return account.get()
 }
 
+export async function updatePassword(newPassword, currentPassword) {
+  return account.updatePassword(newPassword, currentPassword)
+}
+
 function clean(obj) {
   return Object.fromEntries(
     Object.entries(obj).filter(([, v]) => v !== null && v !== undefined)

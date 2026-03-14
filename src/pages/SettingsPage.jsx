@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bell, FileDown, LogOut, Plus, Trash2 } from 'lucide-react'
+import { Bell, FileDown, LogOut, Plus, Trash2, KeyRound } from 'lucide-react'
 import useAuthStore from '../stores/authStore'
 import useSettingsStore from '../stores/settingsStore'
+import { updatePassword } from '../lib/appwrite'
 import Button from '../components/ui/Button'
 import Stepper from '../components/ui/Stepper'
 import Toggle from '../components/ui/Toggle'
@@ -23,9 +24,42 @@ export default function SettingsPage() {
   const [newProductName, setNewProductName] = useState('')
   const [newProductWeight, setNewProductWeight] = useState(0)
 
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [passwordStatus, setPasswordStatus] = useState(null) // 'success' | 'error'
+  const [passwordError, setPasswordError] = useState('')
+  const [passwordLoading, setPasswordLoading] = useState(false)
+
   const handleLogout = async () => {
     await logout()
     navigate('/login')
+  }
+
+  const handlePasswordUpdate = async () => {
+    setPasswordError('')
+    setPasswordStatus(null)
+    if (newPassword.length < 8) {
+      setPasswordError('New password must be at least 8 characters.')
+      return
+    }
+    if (newPassword !== confirmPassword) {
+      setPasswordError('New passwords do not match.')
+      return
+    }
+    setPasswordLoading(true)
+    try {
+      await updatePassword(newPassword, currentPassword)
+      setPasswordStatus('success')
+      setCurrentPassword('')
+      setNewPassword('')
+      setConfirmPassword('')
+    } catch (err) {
+      setPasswordError(err.message || 'Password update failed. Check your current password.')
+      setPasswordStatus('error')
+    } finally {
+      setPasswordLoading(false)
+    }
   }
 
   const handleAddProduct = () => {
@@ -156,6 +190,59 @@ export default function SettingsPage() {
               <Plus size={16} /> Add product
             </Button>
           </div>
+        </div>
+
+        {/* Change password */}
+        <div className="card settings-card">
+          <h3 className="settings-section-title">
+            <KeyRound size={16} /> Change password
+          </h3>
+
+          {passwordStatus === 'success' && (
+            <p className="password-success">Password updated successfully.</p>
+          )}
+          {passwordError && (
+            <p className="password-error">{passwordError}</p>
+          )}
+
+          <div className="form-field">
+            <label>Current password</label>
+            <input
+              type="password"
+              value={currentPassword}
+              onChange={e => { setCurrentPassword(e.target.value); setPasswordStatus(null); setPasswordError('') }}
+              placeholder="Enter current password"
+              autoComplete="current-password"
+            />
+          </div>
+          <div className="form-field">
+            <label>New password</label>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={e => { setNewPassword(e.target.value); setPasswordStatus(null); setPasswordError('') }}
+              placeholder="At least 8 characters"
+              autoComplete="new-password"
+            />
+          </div>
+          <div className="form-field">
+            <label>Confirm new password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={e => { setConfirmPassword(e.target.value); setPasswordStatus(null); setPasswordError('') }}
+              placeholder="Repeat new password"
+              autoComplete="new-password"
+            />
+          </div>
+          <Button
+            variant="secondary"
+            fullWidth
+            onClick={handlePasswordUpdate}
+            disabled={passwordLoading || !currentPassword || !newPassword || !confirmPassword}
+          >
+            {passwordLoading ? 'Updating…' : 'Update password'}
+          </Button>
         </div>
 
         {/* Links */}

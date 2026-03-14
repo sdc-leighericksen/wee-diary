@@ -68,7 +68,7 @@
   justify-content: space-between;
   padding: 10px 12px;
   background: #fef9cd;
-  border: 1px solid #e0dbc8;
+  border: 1px solid #858175;
   border-radius: var(--radius-sm, 6px);
 }
 
@@ -107,4 +107,25 @@
   gap: 12px;
   padding-top: 8px;
   border-top: 1px solid var(--color-border-light);
+}
+
+/* ── Password update ───────────────────────────────────── */
+.password-success {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm, 6px);
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.password-error {
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm, 6px);
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin: 0;
 }

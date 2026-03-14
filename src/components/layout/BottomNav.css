@@ -5,7 +5,7 @@
   right: 0;
   height: var(--nav-height);
   padding-bottom: var(--safe-bottom);
-  background: #faf085;
+  background: #302f2a;
   border-top: none;
   display: flex;
   justify-content: space-around;
@@ -20,16 +20,30 @@
   gap: 2px;
   padding: 8px 12px;
   border-radius: var(--radius-sm);
-  color: #7a776c;
+  color: rgba(255, 255, 255, 0.55);
   font-family: var(--font-body);
   font-size: 0.68rem;
   font-weight: 400;
   transition: color 0.15s;
   min-width: 60px;
+  position: relative;
 }
 
 .bottom-nav-item.active {
-  color: #c1a502;
+  color: #ffffff;
   font-family: var(--font-heading);
   font-weight: 700;
+}
+
+.bottom-nav-item.active::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #c1a502;
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
 }

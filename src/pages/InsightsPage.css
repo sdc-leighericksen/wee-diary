@@ -112,7 +112,7 @@
   font-weight: 600;
 }
 
-.balance-value.fluid-in { color: #c1a502; }
+.balance-value.fluid-in { color: #8a7000; }
 .balance-value.urine-out { color: #302f2a; }
 .balance-value.pad-out { color: #059669; }
 .balance-value.positive { color: var(--color-success, #16A34A); }

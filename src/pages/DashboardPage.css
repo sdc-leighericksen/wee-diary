@@ -23,7 +23,7 @@
 .dash-subdate {
   font-family: var(--font-body);
   font-size: 0.875rem;
-  color: #7a776c;
+  color: #4f4d44;
   margin-top: 2px;
 }
 
@@ -73,7 +73,7 @@
 .summary-label {
   font-family: var(--font-body);
   font-size: 0.6rem;
-  color: #7a776c;
+  color: #4f4d44;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   text-align: center;
@@ -93,7 +93,7 @@
 
 .fluid-progress-fill {
   height: 100%;
-  background: #c1a502;
+  background: #9a7d00;
   border-radius: 4px;
   transition: width 0.5s ease-out;
 }
@@ -103,7 +103,7 @@
   text-align: center;
   font-family: var(--font-body);
   font-size: 0.78rem;
-  color: #7a776c;
+  color: #4f4d44;
   margin-top: 4px;
 }
 
@@ -123,7 +123,7 @@
 /* ── Streak card ───────────────────────────────────────── */
 .streak-card {
   background: #fef9cd !important;
-  border-color: #e0dbc8 !important;
+  border-color: #858175 !important;
   text-align: center;
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -143,7 +143,7 @@
 .empty-state {
   text-align: center;
   font-family: var(--font-body);
-  color: #7a776c;
+  color: #4f4d44;
   font-size: 0.9rem;
   padding: 20px;
 }
@@ -206,7 +206,7 @@
 .entry-notes {
   font-family: var(--font-body);
   font-size: 0.78rem;
-  color: #7a776c;
+  color: #4f4d44;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -215,7 +215,7 @@
 .entry-time {
   font-family: var(--font-body);
   font-size: 0.8rem;
-  color: #7a776c;
+  color: #4f4d44;
   flex-shrink: 0;
 }
 
@@ -265,7 +265,7 @@
   font-family: var(--font-body);
   font-size: 0.85rem;
   cursor: pointer;
-  border: 1.5px solid #e0dbc8;
+  border: 1.5px solid #858175;
 }
 
 /* ── Reminder Banner ───────────────────────────────────── */
@@ -287,7 +287,7 @@
 .reminder-close {
   background: none;
   border: none;
-  color: #7a776c;
+  color: #4f4d44;
   cursor: pointer;
   padding: 2px;
   display: flex;
@@ -315,7 +315,7 @@
   gap: 4px;
   padding: 10px 6px;
   border-radius: var(--radius);
-  border: 1.5px solid #e0dbc8;
+  border: 1.5px solid #858175;
   background: #fef9cd;
 }
 
@@ -338,7 +338,7 @@
 .stamp-label {
   font-family: var(--font-heading);
   font-size: 0.6rem;
-  color: #7a776c;
+  color: #4f4d44;
   text-align: center;
   font-weight: 700;
   text-transform: uppercase;
@@ -394,5 +394,5 @@
 .stamp-celebration-inner p {
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: #7a776c;
+  color: #4f4d44;
 }
